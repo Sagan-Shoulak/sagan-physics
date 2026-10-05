@@ -73,6 +73,11 @@ jobs:
         run: |
           export SAGAN_EXECUTABLE="$GITHUB_WORKSPACE/sagan-source/bin/sagan"
           export SAGAN_PACKAGE_INDEX="$PWD/libraries/index.tsv"
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            # Generated equality expressions currently trigger Clang's
+            # parentheses-equality warning; keep other warnings fatal.
+            export SAGAN_CXXFLAGS="-std=c++23 -Wall -Wextra -Wpedantic -Werror -Wno-error=parentheses-equality"
+          fi
           bash tests/integration/orbit_numeric_test.sh
           bash tests/integration/lagrange_numeric_test.sh
           bash tests/integration/solar_lagrange_numeric_test.sh
