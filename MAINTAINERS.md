@@ -18,6 +18,15 @@ old monorepo index when validating this repository.
 
 ## Exact focused checks
 
+Independent CI checks out the exact language commit in
+`sagan-source-commit.txt`, builds its compiler on Linux, macOS, and Windows,
+then runs the three headless numeric tests below with this repository's
+`libraries/index.tsv`. Change the pin only in a reviewed compatibility PR;
+do not silently substitute a sibling checkout or a branch tip.
+On macOS, CI temporarily demotes only Clang's generated-C++
+`-Wparentheses-equality` warning; the language compiler should remove that
+workaround once its code generator emits warning-clean equality expressions.
+
 Install or build a compatible Sagan compiler and native C++ toolchain.
 From this candidate root in Git Bash on the current Windows machine:
 
