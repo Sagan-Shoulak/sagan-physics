@@ -27,6 +27,12 @@ On macOS, CI temporarily demotes only Clang's generated-C++
 `-Wparentheses-equality` warning; the language compiler should remove that
 workaround once its code generator emits warning-clean equality expressions.
 
+When selected by the exact workspace lock, `scripts/workspace-build.sh` emits
+the orbit demo's linked C++ and `scripts/workspace-test.sh` runs all three
+numeric checks. The workspace coordinator supplies its pinned compiler and
+combined package index through `SAGAN_EXECUTABLE` and `SAGAN_PACKAGE_INDEX`;
+outside a workspace, set both explicitly.
+
 Install or build a compatible Sagan compiler and native C++ toolchain.
 From this candidate root in Git Bash on the current Windows machine:
 
