@@ -18,6 +18,12 @@ old monorepo index when validating this repository.
 
 ## Exact focused checks
 
+Independent CI checks out the exact language commit in
+`sagan-source-commit.txt`, builds its compiler on Linux, macOS, and Windows,
+then runs the three headless numeric tests below with this repository's
+`libraries/index.tsv`. Change the pin only in a reviewed compatibility PR;
+do not silently substitute a sibling checkout or a branch tip.
+
 Install or build a compatible Sagan compiler and native C++ toolchain.
 From this candidate root in Git Bash on the current Windows machine:
 
