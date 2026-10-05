@@ -6,9 +6,10 @@ export PATH="/c/msys64/ucrt64/bin:/ucrt64/bin:/usr/bin:/bin:$PATH"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$repo_root"
 
-export SAGAN_PACKAGE_INDEX="$repo_root/libraries/index.tsv"
+export SAGAN_PACKAGE_INDEX="${SAGAN_PACKAGE_INDEX:-$repo_root/libraries/index.tsv}"
+sagan_executable="${SAGAN_EXECUTABLE:-sagan}"
 
-valid_output="$(bin/sagan --run-package examples/orbit_numeric_demo)"
+valid_output="$("$sagan_executable" --run-package examples/orbit_numeric_demo)"
 for expected in \
   "time_s primary_x_m primary_y_m secondary_x_m secondary_y_m energy_J angular_momentum" \
   "energy_absolute_drift" \
@@ -29,7 +30,7 @@ expect_failure() {
   local expected="$2"
   set +e
   local output
-  output="$(bin/sagan --run-package "$package" 2>&1)"
+  output="$("$sagan_executable" --run-package "$package" 2>&1)"
   local status=$?
   set -e
   if [[ "$status" -eq 0 || "$output" != *"$expected"* ]]; then

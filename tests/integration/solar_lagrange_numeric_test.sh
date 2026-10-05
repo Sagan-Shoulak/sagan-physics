@@ -4,9 +4,10 @@ set -euo pipefail
 export PATH="/c/msys64/ucrt64/bin:/ucrt64/bin:/usr/bin:/bin:$PATH"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$repo_root"
-export SAGAN_PACKAGE_INDEX="$repo_root/libraries/index.tsv"
+export SAGAN_PACKAGE_INDEX="${SAGAN_PACKAGE_INDEX:-$repo_root/libraries/index.tsv}"
+sagan_executable="${SAGAN_EXECUTABLE:-sagan}"
 
-output="$(bin/sagan --run-package examples/solar_lagrange_numeric_demo)"
+output="$("$sagan_executable" --run-package examples/solar_lagrange_numeric_demo)"
 for expected in \
   "day L1_error L2_error L3_error L4_error L5_error control_error" \
   "final_time_s 5.184e+06" \
