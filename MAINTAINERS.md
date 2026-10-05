@@ -9,12 +9,12 @@ verified_by: null
 
 # Maintaining Sagan physics
 
-This is a local split candidate, not a published package repository. Its
+This is a public split repository, not a released package. Its
 `libraries/physics/sagan.toml` currently declares `sagan-physics` version
-`0.3.0`; the candidate-local `libraries/index.tsv` points to that manifest
+`0.3.0`; the repository-local `libraries/index.tsv` points to that manifest
 and declares compiler compatibility `^4.0.0`. The index must stay inside the
-candidate so its manifest path does not escape the index root. Do not use the
-old monorepo index when validating this candidate.
+repository so its manifest path does not escape the index root. Do not use the
+old monorepo index when validating this repository.
 
 ## Exact focused checks
 
