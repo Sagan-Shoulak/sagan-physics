@@ -29,8 +29,8 @@ bash "$repo_root/scripts/build-dev-package.sh" --output-dir "$work_root/build-a"
 bash "$repo_root/scripts/build-dev-package.sh" --output-dir "$work_root/build-b"
 archive_a="$(find "$work_root/build-a" -maxdepth 1 -name '*.zip' -print -quit)"
 archive_b="$(find "$work_root/build-b" -maxdepth 1 -name '*.zip' -print -quit)"
-cmp "$archive_a" "$archive_b"
-cmp "$archive_a.sha256" "$archive_b.sha256"
+[[ "$(sha256sum "$archive_a" | awk '{print $1}')" == "$(sha256sum "$archive_b" | awk '{print $1}')" ]]
+[[ "$(sha256sum "$archive_a.sha256" | awk '{print $1}')" == "$(sha256sum "$archive_b.sha256" | awk '{print $1}')" ]]
 (cd "$work_root/build-a" && sha256sum -c "$(basename "$archive_a.sha256")")
 
 "$python_executable" -m zipfile -e "$compiler_zip" "$work_root/compiler"
