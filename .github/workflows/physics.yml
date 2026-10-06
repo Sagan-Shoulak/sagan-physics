@@ -119,4 +119,6 @@ jobs:
         shell: msys2 {0}
         env:
           SAGAN_RELEASE_ZIP: ${{ runner.temp }}/sagan-4.9.5-windows-x64.zip
-        run: bash tests/integration/dev_package_test.sh
+        run: |
+          export PYTHON="$(cygpath -u "$pythonLocation/python.exe")"
+          bash tests/integration/dev_package_test.sh
