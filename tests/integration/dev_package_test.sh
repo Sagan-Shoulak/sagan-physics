@@ -5,6 +5,9 @@ export PATH="/c/msys64/ucrt64/bin:/ucrt64/bin:/usr/bin:/bin:$PATH"
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 compiler_zip="${SAGAN_RELEASE_ZIP:?Set SAGAN_RELEASE_ZIP to the released Sagan 4.9.5 Windows portable ZIP}"
+if command -v cygpath >/dev/null 2>&1; then
+  compiler_zip="$(cygpath -u "$compiler_zip")"
+fi
 expected_compiler_sha="f62f25076e229ab0f57b58d6f58c54ff61a57240195db7424a49699c09fc1adf"
 python_executable="${PYTHON:-python}"
 work_root="$(mktemp -d "${RUNNER_TEMP:-${TMPDIR:-/tmp}}/sagan-physics-package.XXXXXX")"
