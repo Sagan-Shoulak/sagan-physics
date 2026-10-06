@@ -105,7 +105,7 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
-            python mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gcc
+            git python mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gcc
       - name: Download released Sagan 4.9.5 portable compiler
         shell: bash
         run: >-
