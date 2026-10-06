@@ -99,16 +99,13 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
       - name: Set up MSYS2 UCRT64
         uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
           update: true
           install: >-
-            mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gcc
+            python mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gcc
       - name: Download released Sagan 4.9.5 portable compiler
         shell: bash
         run: >-
@@ -119,6 +116,4 @@ jobs:
         shell: msys2 {0}
         env:
           SAGAN_RELEASE_ZIP: ${{ runner.temp }}/sagan-4.9.5-windows-x64.zip
-        run: |
-          export PYTHON="$(cygpath -u "$pythonLocation/python.exe")"
-          bash tests/integration/dev_package_test.sh
+        run: bash tests/integration/dev_package_test.sh
