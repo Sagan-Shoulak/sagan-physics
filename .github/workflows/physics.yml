@@ -91,3 +91,29 @@ jobs:
           bash tests/integration/orbit_numeric_test.sh
           bash tests/integration/lagrange_numeric_test.sh
           bash tests/integration/solar_lagrange_numeric_test.sh
+
+  dev-package:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up MSYS2 UCRT64
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git python mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gcc
+      - name: Download released Sagan 4.9.5 portable compiler
+        shell: bash
+        run: >-
+          curl --fail --location --retry 3
+          --output "$RUNNER_TEMP/sagan-4.9.5-windows-x64.zip"
+          https://github.com/Sagan-Shoulak/sagan/releases/download/v4.9.5/sagan-4.9.5-windows-x64.zip
+      - name: Verify deterministic package and clean installed consumption
+        shell: msys2 {0}
+        env:
+          SAGAN_RELEASE_ZIP: ${{ runner.temp }}/sagan-4.9.5-windows-x64.zip
+        run: bash tests/integration/dev_package_test.sh

@@ -33,9 +33,16 @@ physics can still be developed and tested independently. The present local
 catalog is a source-checkout aid, not a substitute for released package
 metadata or compatibility verification.
 
+The `dev` branch also builds a deterministic GPL-3.0-only ZIP containing a
+self-contained installed-package index, the 0.3.0 manifest and sources,
+provenance, and payload checksums. Its Windows clean-location test consumes
+the released Sagan 4.9.5 portable compiler without a sibling source checkout.
+This remains a prerelease development channel; Linux and macOS currently have
+exact-source CI evidence rather than installed compiler artifacts.
+
 The first extracted tree retained all 29 owned files and relevant history
 only when the pinned filter used `--no-ff`; the default filter silently
 omitted four solar-Lagrange files. Therefore exact file-manifest comparison
 after filtering is a required invariant, not optional polish. The final
-package-root relocation, standalone hosted CI, Linux/macOS validation, and
-official-docs aggregation remain to be completed. See [MAINTAINERS.md](MAINTAINERS.md).
+stable package distribution and installed-artifact validation beyond Windows
+remain to be completed. See [MAINTAINERS.md](MAINTAINERS.md).

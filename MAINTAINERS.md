@@ -50,7 +50,35 @@ package index, set `SAGAN_PACKAGE_INDEX` explicitly to an exact, reviewed
 catalog before running. The three test scripts passed on Windows with the
 existing Sagan 4.9.5 development binary and the extracted local package.
 The orbit test also passed the three invalid mass/step/overlap fixtures.
-Linux/macOS and a released standalone package are not yet verified.
+Hosted source-built checks pass on Linux, macOS, and Windows. Installed
+artifact consumption is verified only on Windows because Sagan 4.9.5 does not
+publish Linux or macOS compiler artifacts.
+
+### Dev-channel artifact
+
+Build a deterministic package from committed `dev` content with:
+
+```bash
+bash scripts/build-dev-package.sh --output-dir build/dev-package
+```
+
+The ZIP contains a repository-local `index.tsv`, the package manifest and
+sources, GPL-3.0-only license and attribution, provenance, and internal
+`SHA256SUMS`. Verify the archive with its adjacent `.zip.sha256` file before
+extracting it. Set `SAGAN_PACKAGE_INDEX` to the extracted `index.tsv`; do not
+copy its manifest into another catalog or silently fall back to a sibling
+checkout.
+
+`tests/integration/dev_package_test.sh` requires `SAGAN_RELEASE_ZIP` to name
+the official Sagan 4.9.5 Windows portable ZIP. It verifies that compiler
+asset's recorded digest, deterministic package bytes, internal and external
+checksums, all three numeric suites and negative fixtures from a clean
+location, a second run with the repository package source hidden, and
+corruption rejection.
+
+Withdraw a bad prerelease by removing its release assets and prerelease entry,
+then stop selecting that package index. Never delete or rewrite the source
+commit or its reviewed history as part of artifact rollback.
 
 The corresponding demonstration commands are:
 
